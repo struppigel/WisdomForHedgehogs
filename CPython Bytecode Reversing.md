@@ -14,7 +14,7 @@ The most versatile decompiler is probably uncompyle6.
 | unpyc3_archived               | by google code                                                                                   | 3.2                                                | [click](https://code.google.com/archive/p/unpyc3/)                                                    |
 | unpyc3                    | fork of google code version                                                                      | 3.3                                                | [click](https://github.com/figment/unpyc3)          |
 | unpyc37                   | fork of unpyc3                                                                                   | 3.7                                                | [click](https://github.com/andrew-tavera/unpyc37)   |
-| pycdc aka Decompyle++     |                                                                                                  | various, best for 2.7 and 3.3                         | [click](https://github.com/zrax/pycdc)              |
+| pycdc aka Decompyle++     |                                                                                                  |  various (there is no list), the only decompiler for 3.9+ atm     | [click](https://github.com/zrax/pycdc)              |
 
 ## Disassembler
 
