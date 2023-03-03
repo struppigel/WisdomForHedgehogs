@@ -25,6 +25,24 @@ Most decompilers also have disassembly support but there are some dedicated disa
 
 🔗[Python Bytecode Instructions](https://docs.python.org/3/library/dis.html#python-bytecode-instructions)
 
+The disassembler is especially useful if premade tools/decompilers fail to extract anything.
+
+**Inspecting objects:**
+
+```python
+import rich
+import malwaremodule
+rich.inspect(malwarefunction)
+```
+
+**Disassembly:**
+
+```python
+import dis
+import malwaremodule
+dis.dis(malwarefunction)
+```
+
 ## Assembler
 
 [python-xasm](https://github.com/rocky/python-xasm), for making small patches to existing bytecode
