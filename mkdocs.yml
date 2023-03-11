@@ -1,0 +1,4 @@
+site_name: Wisdom for Hedgehogs
+theme:
+  name: terminal
+  palette: dark
