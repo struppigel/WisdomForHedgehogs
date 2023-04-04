@@ -7,11 +7,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Malware analysis blog by struppigel aka Karsten Hahn" name="description"/>
 <meta content="Karsten Hahn" name="author"/>
-<link href="https://struppigel.github.io/WisdomForHedgehogs/testpage/Publications%20at%20GDATA/" rel="canonical"/>
-<link href="../" rel="prev"/>
+<link href="https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/MBR%20and%20BIOS/" rel="canonical"/>
+<link href="../CPython%20Bytecode%20Reversing/" rel="prev"/>
+<link href="../PowerShell/" rel="next"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-9.1.2" name="generator"/>
-<title>Publications at GDATA - Malware Analysis For Hedgehogs</title>
+<title>MBR and BIOS - Malware Analysis For Hedgehogs</title>
 <link href="../../assets/stylesheets/main.7bf56d0a.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -35,7 +36,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#essays-and-guides">
+<a class="md-skip" href="#static-mbr-analysis">
           Skip to content
         </a>
 </div>
@@ -59,7 +60,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Publications at GDATA
+              MBR and BIOS
             
           </span>
 </div>
@@ -136,30 +137,185 @@
         Wisdom for Hedgehogs
       </a>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Reversing Tips
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_2">
 <span class="md-nav__icon md-icon"></span>
           Reversing Tips
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../Execution%20Environments/CPython%20Bytecode%20Reversing/">
+<a class="md-nav__link" href="../CPython%20Bytecode%20Reversing/">
         CPython Bytecode
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../Execution%20Environments/MBR%20and%20BIOS/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          MBR and BIOS
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
         MBR and BIOS
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#static-mbr-analysis">
+    Static MBR Analysis
+  </a>
+<nav aria-label="Static MBR Analysis" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#useful-assembly-snippets-and-values-to-recognize">
+    Useful assembly snippets and values to recognize
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../Execution%20Environments/PowerShell/">
+<a class="md-nav__link" href="#common-int-13-commands">
+    Common Int 13 commands
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-analysis">
+    Dynamic Analysis
+  </a>
+<nav aria-label="Dynamic Analysis" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-via-bochsrcbxrc">
+    Configuration via bochsrc.bxrc
+  </a>
+<nav aria-label="Configuration via bochsrc.bxrc" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explanation">
+    Explanation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-the-disk-image">
+    Creating the disk image
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#infecting-the-disk-image">
+    Infecting the disk image
+  </a>
+<nav aria-label="Infecting the disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-install-guest-os-on-bochs-and-execute-bootkit-infector">
+    1. Install guest OS on Bochs and execute bootkit infector
+  </a>
+<nav aria-label="1. Install guest OS on Bochs and execute bootkit infector" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pros">
+    pros
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cons">
+    cons
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-extract-bootkit-components-mbr-vbr-ipl-and-write-to-disk-image">
+    2. Extract bootkit components (MBR, VBR, IPL) and write to disk image
+  </a>
+<nav aria-label="2. Extract bootkit components (MBR, VBR, IPL) and write to disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pros_1">
+    pros
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cons_1">
+    cons
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#howto">
+    howto
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-infect-vm-and-copy-paste-bootkit-data">
+    3. Infect VM and copy-paste bootkit data
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-the-disk-image">
+    Debugging the disk image
+  </a>
+<nav aria-label="Debugging the disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#via-bochs">
+    Via Bochs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#via-bochs-with-ida">
+    Via Bochs with IDA
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resources">
+    Resources
+  </a>
+<nav aria-label="Resources" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#learning">
+    Learning
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation">
+    Documentation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../PowerShell/">
         PowerShell
       </a>
 </li>
@@ -336,14 +492,146 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#essays-and-guides">
-    Essays and guides
+<a class="md-nav__link" href="#static-mbr-analysis">
+    Static MBR Analysis
+  </a>
+<nav aria-label="Static MBR Analysis" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#useful-assembly-snippets-and-values-to-recognize">
+    Useful assembly snippets and values to recognize
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#malware-analysis">
-    Malware analysis
+<a class="md-nav__link" href="#common-int-13-commands">
+    Common Int 13 commands
   </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dynamic-analysis">
+    Dynamic Analysis
+  </a>
+<nav aria-label="Dynamic Analysis" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-via-bochsrcbxrc">
+    Configuration via bochsrc.bxrc
+  </a>
+<nav aria-label="Configuration via bochsrc.bxrc" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explanation">
+    Explanation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-the-disk-image">
+    Creating the disk image
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#infecting-the-disk-image">
+    Infecting the disk image
+  </a>
+<nav aria-label="Infecting the disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-install-guest-os-on-bochs-and-execute-bootkit-infector">
+    1. Install guest OS on Bochs and execute bootkit infector
+  </a>
+<nav aria-label="1. Install guest OS on Bochs and execute bootkit infector" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pros">
+    pros
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cons">
+    cons
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-extract-bootkit-components-mbr-vbr-ipl-and-write-to-disk-image">
+    2. Extract bootkit components (MBR, VBR, IPL) and write to disk image
+  </a>
+<nav aria-label="2. Extract bootkit components (MBR, VBR, IPL) and write to disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pros_1">
+    pros
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cons_1">
+    cons
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#howto">
+    howto
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-infect-vm-and-copy-paste-bootkit-data">
+    3. Infect VM and copy-paste bootkit data
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-the-disk-image">
+    Debugging the disk image
+  </a>
+<nav aria-label="Debugging the disk image" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#via-bochs">
+    Via Bochs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#via-bochs-with-ida">
+    Via Bochs with IDA
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resources">
+    Resources
+  </a>
+<nav aria-label="Resources" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#learning">
+    Learning
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#documentation">
+    Documentation
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -352,112 +640,222 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>Publications at GDATA</h1>
-<div><p>From 2017 to 2022 half of my work time was devoted to Public Relations department for GDATA which included giving talks, webinars, talking to journalists and writing blog articles for GDATA Techblog. The articles roughly fall into one of two categories:</p>
-<ol>
-<li>
-<p>Essay-like articles and guides, sometimes with a bit more controversial topics</p>
-</li>
-<li>
-<p>Malware news and malware analysis reports</p>
-</li>
-</ol>
-<h2 id="essays-and-guides">Essays and guides</h2>
+<h1>MBR and BIOS</h1>
+<div><p>MBR malware is not that common anymore and will decline more with the advent of UEFI. The most notable occurences were MBR ransomware families that were created with a publicly available MBR image builder by WobbyChip and of course Petya.</p>
+<p>MBR malware is still one of the most fascinating topics for me and a good starting point if you are interested in UEFI later.</p>
+<p>I highly recommend reading the book <a href="https://www.amazon.com/Rootkits-Bootkits-Reversing-Malware-Generation/dp/1593277164">Rootkits and Bootkits, Chapter 8 Static Analysis of a Bootkit using IDA Pro</a> as well as watching Dump-GUY's video <a href="https://www.youtube.com/watch?v=qmhGwvAH7-8">IDAPro Reversing Delphi MBR Wiper and Infected Bootstrap Code</a> </p>
+<h2 id="static-mbr-analysis">Static MBR Analysis</h2>
+<p>You need to setup your disassembler correctly to analyse MBR code.</p>
+<p>Load the file as binary file.
+Set the <em>Loading offset</em> for the file to <strong>0x7c00</strong> because this is the fixed address where MBR is loaded.
+Choose <em>16-bit mode</em>.</p>
+<h3 id="useful-assembly-snippets-and-values-to-recognize">Useful assembly snippets and values to recognize</h3>
+<p>I found it very helpful to note down magic numbers and commands that are the most relevant for MBR malware analysis because there is so much potential information that you could learn.</p>
+<p>Remember the following ones and it should serve you well.</p>
+<table>
+<thead>
+<tr>
+<th>value or code</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x7c00</td>
+<td>Loading offset for MBR code</td>
+</tr>
+<tr>
+<td>512</td>
+<td>size of MBR</td>
+</tr>
+<tr>
+<td>dl</td>
+<td>BIOS sets dl register to number of harddrive from which MBR is being executed</td>
+</tr>
+<tr>
+<td>sub ptr ds:413h, 10h</td>
+<td>16-bit value (x86) located at 413h contains available memory in KB, this needs to be substracted when allocating memory, here 10 KB are substracted</td>
+</tr>
+<tr>
+<td>int 13h</td>
+<td>entry point to BIOS disk service, operation code put into <code>ah</code> in the example</td>
+</tr>
+<tr>
+<td>0x1BE or 0x7DBE</td>
+<td>Partition Table offset, with 4 entries, 0x10 bytes each, lists available partitions</td>
+</tr>
+<tr>
+<td>0x0AA55(LE) or "55 AA"</td>
+<td>Magic number, always last two bytes of first sector in bootdisk, BIOS will only try to boot if this is found</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-int-13-commands">Common Int 13 commands</h3>
+<p>Similarly to the snippets the table below lists common commands that will help to understand MBR malware.</p>
+<table>
+<thead>
+<tr>
+<th>operation code</th>
+<th>description</th>
+<th>usage by malware</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2h</td>
+<td>Read sectors into memory</td>
+<td></td>
+</tr>
+<tr>
+<td>3h</td>
+<td>Write disk sectors</td>
+<td></td>
+</tr>
+<tr>
+<td>8h</td>
+<td>Get drive parameters</td>
+<td></td>
+</tr>
+<tr>
+<td>41h</td>
+<td>Extensions installation check</td>
+<td></td>
+</tr>
+<tr>
+<td>42h</td>
+<td>Extended read</td>
+<td>read malicious boot sector</td>
+</tr>
+<tr>
+<td>43h</td>
+<td>Extended write</td>
+<td></td>
+</tr>
+<tr>
+<td>48h</td>
+<td>Extended get drive parameters</td>
+<td>navigate to hidden storage</td>
+</tr>
+</tbody>
+</table>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>Operation codes below 41h are legacy operations.
+The adressing scheme for extended operations is called <em>logical block adressing</em> (LBA), legacy operations use <em>Cylinder Head Sector</em> (CHS) based adressing</p>
+</details>
+<p>There are more commands, see: <a href="https://en.wikipedia.org/wiki/INT_13H">INT_13h Wikipedia</a></p>
+<h2 id="dynamic-analysis">Dynamic Analysis</h2>
+<p>This is best done using <a href="https://github.com/bochs-emu/Bochs">Bochs</a>, an alternative is <a href="https://www.qemu.org/">QEMU</a>.</p>
+<h3 id="configuration-via-bochsrcbxrc">Configuration via bochsrc.bxrc</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>megs: 512  
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>romimage: file="../BIOS-bochs-latest"
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>vgaromimage: file="../VGABIOS-lgpl-latest"
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>boot: cdrom, disk
+</span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>ata0-master: type=disk, path="image.img", mode=flat, cylinders=6192, heads=16, spt=63
+</span><span id="__span-0-6"><a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a>mouse: enabled=0
+</span><span id="__span-0-7"><a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>cpu: ips=90000000
+</span></code></pre></div>
+<h4 id="explanation">Explanation</h4>
 <ul>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/09/37511-detecting-file-manipulation-in-system-files">Identifying file manipulation in system files</a></p>
+<li><em>megs</em>: RAM limit for emulated environment</li>
+<li><em>romimage</em> and <em>vgaromimage</em> specify paths to BIOS and VGA BIOS modules (default modules are shipped by Bochs and used here)</li>
+<li><em>boot</em>: boot device sequence</li>
+<li><em>ata0-master</em>: type and characteristics of harddrive, disk image named "win_os.img" is created with bxImage tool<ul>
+<li>type: either disk or cdrom</li>
+<li>path: path to disk image on host system</li>
+<li>mode: type of image, only valid for disk device</li>
+<li>cylinders: number of cylinders on disk (defines size of disk)</li>
+<li>heads: number of heads for disk (defines size of disk)</li>
+<li>spt: number of sectors per track (defines size of disk)</li>
+</ul>
 </li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/06/37445-malware-detection-is-hard">The real reason why malware detection is hard--and underestimated</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/01/malware-vaccines">Malware vaccines can prevent pandemics, yet are rarely used</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2021/09/an-overview-of-malware-hashing-algorithms">All your hashes are belong to us: An overview of malware hashing algorithms</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/malware-family-naming-hell">Malware family naming hell is our own fault (Malware Naming Hell Part 2)</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2020/05/36083-dumping-covid-19jar-with-java-instrumentation">Dumping COVID-19.jar with Java Instrumentation</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/pebitnesstrick">PE trick explained: Telling 32 and 64 bit apart with naked eye</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/08/35146-taming-the-mess-of-av-detection-names">Malware Naming Hell Part 1: Taming the mess of AV detection names</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/06/31666-ransomware-identification-for-the-judicious-analyst">Ransomware identification for the judicious analyst</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2016/11/29289-it-s-educational-on-the-no-1-argument-for-open-source-ransomware">It's Educational - One the No 1 Argument for Open Source Ransomware</a></p>
+<li><em>mouse</em>: en- or disables mouse</li>
+</ul>
+<h3 id="creating-the-disk-image">Creating the disk image</h3>
+<p>You can use <em>dd</em> (Unix) or <em>bximage</em> command.</p>
+<p><em>bximage</em> is part of bochs. Choose the following options 
+* Enter 1 to create a new hard disk image
+* Choose <em>hd</em>
+* Choose [flat]
+* Enter 10
+* Choose any name, e.g., image.img, make sure that the ata0-master path variable is set to this image name in bochsrc.bxrc</p>
+<p>Now you have a disk image.</p>
+<h3 id="infecting-the-disk-image">Infecting the disk image</h3>
+<p>There are several ways to do that. The book Rootkits and Bootkits describes the first two. But my preferred one is the last.</p>
+<h4 id="1-install-guest-os-on-bochs-and-execute-bootkit-infector">1. Install guest OS on Bochs and execute bootkit infector</h4>
+<h5 id="pros">pros</h5>
+<ul>
+<li>all components of malware are installed</li>
+</ul>
+<h5 id="cons">cons</h5>
+<ul>
+<li>emulation of instructions takes longer</li>
+<li>needs larger disk image</li>
+<li>antiemulation of malware might trigger</li>
+</ul>
+<h4 id="2-extract-bootkit-components-mbr-vbr-ipl-and-write-to-disk-image">2. Extract bootkit components (MBR, VBR, IPL) and write to disk image</h4>
+<h5 id="pros_1">pros</h5>
+<ul>
+<li>smaller disk size</li>
+<li>faster</li>
+</ul>
+<h5 id="cons_1">cons</h5>
+<ul>
+<li>cannot analyse components like kernel mode drivers</li>
+<li>a little complicated</li>
+</ul>
+<h5 id="howto">howto</h5>
+<ul>
+<li>Extract MBR, VBR and IPL</li>
+<li>Write MBR to 0x0</li>
+<li>Check partition table for active partition: starting sector (e.g. 0x10) and partition size in sectors (e.g. 0x200) are used to compute start of VBR</li>
+<li>Write VBR and IPL to active partition offset: starting sector * partition size (e.g. here 0x2000) </li>
+</ul>
+<h4 id="3-infect-vm-and-copy-paste-bootkit-data">3. Infect VM and copy-paste bootkit data</h4>
+<ul>
+<li>Infect a VM with bootkit infector</li>
+<li>Run 010 Editor as administrator</li>
+<li>Go to File --&gt; Open Drive --&gt; Physical Drive C:</li>
+<li>Copy and paste data to Bochs image</li>
+</ul>
+<h3 id="debugging-the-disk-image">Debugging the disk image</h3>
+<p>Using IDA with Bochs is the most convenient way to do that. But you can also just use Bochs.</p>
+<h4 id="via-bochs">Via Bochs</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>bochsdbg.exe<span class="w"> </span>-q<span class="w"> </span>-f<span class="w"> </span>bochsrc.bxrc
+</span></code></pre></div>
+<p>Enter <em>lb 0x7c00</em> to set breakpoint on start of boot code</p>
+<p>Press <em>c</em> to commence execution</p>
+<p>Press <em>u</em> to see disassembles instruction from current address</p>
+<p>Enter <em>help</em> for full list of instructions or visit 🔗<a href="https://bochs.sourceforge.io/doc/docbook/user/internal-debugger.html">Bochs Documentation</a></p>
+<h4 id="via-bochs-with-ida">Via Bochs with IDA</h4>
+<p>Way 1:</p>
+<ul>
+<li>start Bochs emulation</li>
+<li>In IDA go to Debugger --&gt; Run --&gt; Local Bochs Debugger</li>
+<li>in the dialog specify path to Bochs configuration file <em>bochsrc.bxrc</em></li>
+<li>click Debug options --&gt; Set specific options<ul>
+<li>select Disk image</li>
+</ul>
 </li>
 </ul>
-<h2 id="malware-analysis">Malware analysis</h2>
+<p>Way 2:</p>
 <ul>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/03/ginzo-free-malware">Criminals provide Ginzo stealer for free, now it is gaining traction</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/02/37239-allcome-clipbanker-is-a-newcomer-in-malware-underground-forums">Allcome clipbanker is a newcomer in underground forums</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2022/01/37236-qr-codes-on-twitter-deliver-malicious-chrome-extension">QR codes on Twitter deliver malicious Chrome extension</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit">Microsoft signed a malicious Netfilter rootkit</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2021/06/36861-malware-hides-in-steam-profile-images">Picture this: Malware Hides in Steam Profile Images</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2021/02/36633-new-version-adds-encrypted-communication">SectopRAT: New version adds encrypted communication</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/icerat-evades-antivirus-by-using-jphp">IceRat evades antivirus by running PHP on Java VM</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2020/11/36459-babax-stealer-rebrands-to-osno-installs-rootkit">Babax stealer rebrands to Osno, install rootkit</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/trat-control-via-smartphone">T-RAT 2.0: Malware control via smartphone</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/cyrat-ransomware">DLL Fixer leads to Cyrat Ransomware</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2020/07/36200-ransomware-tries-to-worm">Try2Cry: Ransomware tries to worm</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/strrat-crimson">New Java STRRAT ships with .crimson ransomware module</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/netwire-rat-via-pasteee-and-ms-excel">Spam campaign: Netwire RAT via paste.ee and MS Excel to German users</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2020/02/35802-bitbucket-abused-as-malware-slinger">40,000 CryptBot Downloads per Day: Bitbucket Abused as Malware Slinger</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/07/35035-strange-bits-3">Strange Bits: Skull and Crossbones, Bloated Malware, and All-In-One Solution for Ransomware</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/06/31724-strange-bits-sodinokibi-spam-cinarat-and-fake-g-data">Strange Bits: Sodinokibi Spam, CinaRAT, and Fake G DATA</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/05/31695-strange-bits-smuggling-malware-github">Strange Bits: HTML Smuggling and Github Hosted Malware</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/04/31643-garrantydecrypt-ransomware-spyhunter">GarrantyDecrypt Ransomware poses as EnigmaSoft's SpyHunter</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2019/11/35548-new-sectoprat-remote-access-malware-utilizes-second-desktop-to-control-browsers">New SectopRAT: Remote access malware utilizes second desktop to control browsers</a></p>
-</li>
-<li>
-<p><a href="https://www.gdatasoftware.com/blog/2017/01/29442-spora-worm-and-ransomware">Spora - the Shortcut Worm that is also a Ransomware</a></p>
-</li>
-</ul></div>
+<li>open <em>bochsrc.bxrc</em> in IDA as file</li>
+</ul>
+<h2 id="resources">Resources</h2>
+<p>Check out the following resources if you want to dig deeper.</p>
+<h3 id="learning">Learning</h3>
+<p>📘<a href="https://www.amazon.com/Rootkits-Bootkits-Reversing-Malware-Generation/dp/1593277164">Rootkits and Bootkits, Chapter 8 Static Analysis of a Bootkit using IDA Pro</a></p>
+<p>📹<a href="https://www.youtube.com/watch?v=qmhGwvAH7-8">IDAPro Reversing Delphi MBR Wiper and Infected Bootstrap Code</a> </p>
+<p>--&gt; companion tutorial: 🔗<a href="https://github.com/Dump-GUY/Malware-analysis-and-Reverse-engineering/blob/main/Debugging%20MBR%20-%20IDA%20+%20Bochs%20Emulator/Debugging%20MBR%20-%20IDA%20+%20Bochs%20Emulator.md">Debugging MBR - IDA + Bochs Emulator (CTF example)</a></p>
+<p>🔗<a href="http://www.blackstormsecurity.com/docs/DC2711.pdf">Alexandre Borges Slides Defcon</a></p>
+<p>🔗<a href="https://exploitreversing.files.wordpress.com/2021/12/hitb_ams_2019-1.pdf">Alexandre Borges Slides 2019 Amsterdam</a></p>
+<p>🔗<a href="https://exploitreversing.files.wordpress.com/2021/12/defcon2018-2.pdf">Alexandre Borges Ring 0 Rootkits</a></p>
+<h3 id="documentation">Documentation</h3>
+<p>🔨<a href="https://github.com/EricZimmerman/MFT">MFT parser</a> </p>
+<p>🔗<a href="https://github.com/libyal/libfsntfs/blob/main/documentation/New%20Technologies%20File%20System%20(NTFS).asciidoc">New Technologies File System (NTFS)</a> by Joachim Metz --&gt; this one is good, more concise</p>
+<p>🔗<a href="https://dubeyko.com/development/FileSystems/NTFS/ntfsdoc.pdf">more NTFS documentation</a></p>
+<p>🔗<a href="https://flatcap.github.io/linux-ntfs/ntfs/">Even more NTFS documentation</a></p></div>
 <hr/>
 <div class="md-source-file">
 <small>
@@ -467,39 +865,6 @@
     
   </small>
 </div>
-<h2 id="__comments">Comments</h2>
-<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOJEee5M4CUzl7" data-emit-metadata="0" data-input-position="top" data-lang="en" data-mapping="pathname" data-reactions-enabled="1" data-repo="struppigel/WisdomForHedgehogs" data-repo-id="R_kgDOJEee5A" data-strict="0" data-theme="dark" src="https://giscus.app/client.js">
-</script>
-<script>
-    var giscus = document.querySelector("script[src*=giscus]")
-
-    /* Set palette on initial load */
-    var palette = __md_get("__palette")
-    if (palette && typeof palette.color === "object") {
-      var theme = palette.color.scheme === "slate" ? "dark" : "light"
-      giscus.setAttribute("data-theme", theme) 
-
-
-    }
-
-    /* Register event handlers after documented loaded */
-    document.addEventListener("DOMContentLoaded", function() {
-      var ref = document.querySelector("[data-md-component=palette]")
-      ref.addEventListener("change", function() {
-        var palette = __md_get("__palette")
-        if (palette && typeof palette.color === "object") {
-          var theme = palette.color.scheme === "slate" ? "dark" : "light"
-
-          /* Instruct Giscus to change theme */
-          var frame = document.querySelector(".giscus-frame")
-          frame.contentWindow.postMessage(
-            { giscus: { setConfig: { theme } } },
-            "https://giscus.app"
-          )
-        }
-      })
-    })
-  </script>
 </article>
 </div>
 </div>
