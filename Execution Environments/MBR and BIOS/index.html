@@ -773,12 +773,14 @@ The adressing scheme for extended operations is called <em>logical block adressi
 </ul>
 <h3 id="creating-the-disk-image">Creating the disk image</h3>
 <p>You can use <em>dd</em> (Unix) or <em>bximage</em> command.</p>
-<p><em>bximage</em> is part of bochs. Choose the following options 
-* Enter 1 to create a new hard disk image
-* Choose <em>hd</em>
-* Choose [flat]
-* Enter 10
-* Choose any name, e.g., image.img, make sure that the ata0-master path variable is set to this image name in bochsrc.bxrc</p>
+<p><em>bximage</em> is part of bochs. Choose the following options </p>
+<ul>
+<li>Enter 1 to create a new hard disk image</li>
+<li>Choose <em>hd</em></li>
+<li>Choose [flat]</li>
+<li>Enter 10</li>
+<li>Choose any name, e.g., image.img, make sure that the ata0-master path variable is set to this image name in bochsrc.bxrc</li>
+</ul>
 <p>Now you have a disk image.</p>
 <h3 id="infecting-the-disk-image">Infecting the disk image</h3>
 <p>There are several ways to do that. The book Rootkits and Bootkits describes the first two. But my preferred one is the last.</p>
