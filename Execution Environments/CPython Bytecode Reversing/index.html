@@ -7,18 +7,19 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Malware analysis blog by struppigel aka Karsten Hahn" name="description"/>
 <meta content="Karsten Hahn" name="author"/>
-<link href="https://struppigel.github.io/WisdomForHedgehogs/" rel="canonical"/>
-<link href="Execution%20Environments/CPython%20Bytecode%20Reversing/" rel="next"/>
-<link href="assets/images/favicon.png" rel="icon"/>
+<link href="https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/CPython%20Bytecode%20Reversing/" rel="canonical"/>
+<link href="../.." rel="prev"/>
+<link href="../PowerShell/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-9.1.2" name="generator"/>
-<title>Malware Analysis For Hedgehogs</title>
-<link href="assets/stylesheets/main.7bf56d0a.min.css" rel="stylesheet"/>
-<link href="assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
+<title>CPython Bytecode - Malware Analysis For Hedgehogs</title>
+<link href="../../assets/stylesheets/main.7bf56d0a.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=orbitron:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"orbitron";--md-code-font:"Roboto Mono"}</style>
-<script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-<link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -29,13 +30,13 @@
                 body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
                 body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
                 body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-                </style><script src="assets/javascripts/glightbox.min.js"></script></head>
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
 <body data-md-color-accent="yellow" data-md-color-primary="black" data-md-color-scheme="slate" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#wisdom-for-hedgehogs">
+<a class="md-skip" href="#cpython-bytecode">
           Skip to content
         </a>
 </div>
@@ -43,7 +44,7 @@
 </div>
 <header class="md-header md-header--shadow" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="Malware Analysis For Hedgehogs" class="md-header__button md-logo" data-md-component="logo" href="." title="Malware Analysis For Hedgehogs">
+<a aria-label="Malware Analysis For Hedgehogs" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Malware Analysis For Hedgehogs">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5a1.746 1.746 0 0 0-1 3.18v1.4c-.9.13-1.74.42-2.5.86L7.39 4.35c.19-.52.14-1.12-.2-1.6C6.84 2.26 6.3 2 5.75 2c-.35 0-.7.1-1 .32-.79.55-.99 1.64-.43 2.43.34.49.88.75 1.43.75l1.18 1.68c-.43.43-.77.91-1.06 1.44-.2-.08-.41-.12-.62-.12-.45 0-.9.17-1.25.5-.67.7-.67 1.8 0 2.5.29.27.64.42 1 .5 0 .54.07 1.06.18 1.56l-1.31.35c-.31-.26-.71-.41-1.12-.41-.15 0-.31 0-.46.06a1.752 1.752 0 0 0-1.23 2.15C1.27 16.5 2 17 2.75 17c.15 0 .3 0 .46-.06.57-.16 1-.58 1.18-1.1l1.51-.41c.45.79 1.05 1.49 1.75 2.07l-1.1 2c-.55.08-1.05.39-1.34.92a1.749 1.749 0 1 0 3.08 1.66c.28-.52.27-1.12.02-1.61l1.07-1.97c.81.32 1.69.5 2.62.5h.18c-.13.26-.18.56-.18.88.08.92.84 1.62 1.75 1.62h.13c.97-.08 1.69-.92 1.62-1.88-.04-.5-.29-.94-.65-1.23.47-.21.92-.48 1.34-.79l2.34 2.34c-.1.56.06 1.13.47 1.56.35.33.8.5 1.25.5s.9-.17 1.25-.5c.67-.7.67-1.8 0-2.5-.35-.33-.8-.5-1.25-.5-.1 0-.2 0-.31.03l-2.34-2.34c.49-.65.87-1.39 1.11-2.19h1.11A1.746 1.746 0 0 0 23 13a1.746 1.746 0 0 0-3.18-1H19c0-1.57-.5-3-1.4-4.19l1.34-1.34c.11.03.21.03.31.03.45 0 .9-.17 1.25-.5.67-.69.67-1.8 0-2.5-.35-.33-.8-.5-1.25-.5s-.9.17-1.25.5c-.41.43-.57 1-.47 1.56L16.19 6.4c-.92-.69-2-1.15-3.19-1.32v-1.4A1.746 1.746 0 0 0 12 .5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m-1.5-8C9.67 9 9 9.67 9 10.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5S11.33 9 10.5 9m3.5 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1Z"></path></svg>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
@@ -59,7 +60,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Wisdom for Hedgehogs
+              CPython Bytecode
             
           </span>
 </div>
@@ -115,7 +116,7 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="Malware Analysis For Hedgehogs" class="md-nav__button md-logo" data-md-component="logo" href="." title="Malware Analysis For Hedgehogs">
+<a aria-label="Malware Analysis For Hedgehogs" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Malware Analysis For Hedgehogs">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5a1.746 1.746 0 0 0-1 3.18v1.4c-.9.13-1.74.42-2.5.86L7.39 4.35c.19-.52.14-1.12-.2-1.6C6.84 2.26 6.3 2 5.75 2c-.35 0-.7.1-1 .32-.79.55-.99 1.64-.43 2.43.34.49.88.75 1.43.75l1.18 1.68c-.43.43-.77.91-1.06 1.44-.2-.08-.41-.12-.62-.12-.45 0-.9.17-1.25.5-.67.7-.67 1.8 0 2.5.29.27.64.42 1 .5 0 .54.07 1.06.18 1.56l-1.31.35c-.31-.26-.71-.41-1.12-.41-.15 0-.31 0-.46.06a1.752 1.752 0 0 0-1.23 2.15C1.27 16.5 2 17 2.75 17c.15 0 .3 0 .46-.06.57-.16 1-.58 1.18-1.1l1.51-.41c.45.79 1.05 1.49 1.75 2.07l-1.1 2c-.55.08-1.05.39-1.34.92a1.749 1.749 0 1 0 3.08 1.66c.28-.52.27-1.12.02-1.61l1.07-1.97c.81.32 1.69.5 2.62.5h.18c-.13.26-.18.56-.18.88.08.92.84 1.62 1.75 1.62h.13c.97-.08 1.69-.92 1.62-1.88-.04-.5-.29-.94-.65-1.23.47-.21.92-.48 1.34-.79l2.34 2.34c-.1.56.06 1.13.47 1.56.35.33.8.5 1.25.5s.9-.17 1.25-.5c.67-.7.67-1.8 0-2.5-.35-.33-.8-.5-1.25-.5-.1 0-.2 0-.31.03l-2.34-2.34c.49-.65.87-1.39 1.11-2.19h1.11A1.746 1.746 0 0 0 23 13a1.746 1.746 0 0 0-3.18-1H19c0-1.57-.5-3-1.4-4.19l1.34-1.34c.11.03.21.03.31.03.45 0 .9-.17 1.25-.5.67-.69.67-1.8 0-2.5-.35-.33-.8-.5-1.25-.5s-.9.17-1.25.5c-.41.43-.57 1-.47 1.56L16.19 6.4c-.92-.69-2-1.15-3.19-1.32v-1.4A1.746 1.746 0 0 0 12 .5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m-1.5-8C9.67 9 9 9.67 9 10.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5S11.33 9 10.5 9m3.5 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1Z"></path></svg>
 </a>
     Malware Analysis For Hedgehogs
@@ -131,14 +132,31 @@
 </a>
 </div>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Wisdom for Hedgehogs
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Reversing Tips
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Reversing Tips
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Wisdom for Hedgehogs
+          CPython Bytecode
           <span class="md-nav__icon md-icon"></span>
 </label>
-<a class="md-nav__link md-nav__link--active" href=".">
-        Wisdom for Hedgehogs
+<a class="md-nav__link md-nav__link--active" href="./">
+        CPython Bytecode
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -147,56 +165,34 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#content">
-    Content
+<a class="md-nav__link" href="#decompilers-disassemblers-assemblers">
+    Decompilers, Disassemblers, Assemblers
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#faq">
-    FAQ
-  </a>
-<nav aria-label="FAQ" class="md-nav">
+<nav aria-label="Decompilers, Disassemblers, Assemblers" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#why-hedgehogs">
-    Why hedgehogs?
+<a class="md-nav__link" href="#decompilers-and-supported-python-versions">
+    Decompilers and supported Python versions
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#how-should-i-start-learning-malware-analysis">
-    How should I start learning malware analysis?
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#do-i-need-a-degree-certs-to-become-a-malware-analyst">
-    Do I need a degree / certs to become a malware analyst?
+<a class="md-nav__link" href="#disassembler">
+    Disassembler
   </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#assembler">
+    Assembler
+  </a>
+</li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-          Reversing Tips
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_2">
-<span class="md-nav__icon md-icon"></span>
-          Reversing Tips
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="Execution%20Environments/CPython%20Bytecode%20Reversing/">
-        CPython Bytecode
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="Execution%20Environments/PowerShell/">
+<a class="md-nav__link" href="../PowerShell/">
         PowerShell
       </a>
 </li>
@@ -354,7 +350,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="About%20me/">
+<a class="md-nav__link" href="../../About%20me/">
         About me
       </a>
 </li>
@@ -373,33 +369,28 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#content">
-    Content
+<a class="md-nav__link" href="#decompilers-disassemblers-assemblers">
+    Decompilers, Disassemblers, Assemblers
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#faq">
-    FAQ
-  </a>
-<nav aria-label="FAQ" class="md-nav">
+<nav aria-label="Decompilers, Disassemblers, Assemblers" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#why-hedgehogs">
-    Why hedgehogs?
+<a class="md-nav__link" href="#decompilers-and-supported-python-versions">
+    Decompilers and supported Python versions
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#how-should-i-start-learning-malware-analysis">
-    How should I start learning malware analysis?
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#do-i-need-a-degree-certs-to-become-a-malware-analyst">
-    Do I need a degree / certs to become a malware analyst?
+<a class="md-nav__link" href="#disassembler">
+    Disassembler
   </a>
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#assembler">
+    Assembler
+  </a>
 </li>
 </ul>
 </nav>
@@ -408,21 +399,97 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<div><h1 id="wisdom-for-hedgehogs">Wisdom for Hedgehogs</h1>
-<p>Knowledge and education are one of the most valuable commodities in this world. On my path while learning a skill and conquering a field, I always took mental notes which resources would have been useful to make things easier. E.g., 2014 Youtube videos about malware analysis were almost non-existent, despite it being a splendid platform to showcase analysis approaches.</p>
-<p>Hence, I started to <a href="https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A">create Youtube videos myself</a>. These were of low quality in the beginning, but I figured I will learn and improve on the way. My videos in turn inspired others to do the same, among others <a href="https://www.youtube.com/@OALABS/videos">OALabs</a> and <a href="https://www.youtube.com/@Demonslay335/videos">Michael Gillespie</a>. That was indeed one of the greatest things I could wish for to happen -- that my work would inspire others to share their knowledge too, so they improve availability of educational resources and inspire people themselves.</p>
-<p>That could have been it, however, at some point I ended up watching old videos of myself just to remember how I solved a certain problem in the past. After I did this for the third time, I finally started taking actual notes which I will convert to publicly available articles over time.</p>
-<h2 id="content">Content</h2>
-<p>The most interesting section for you are probably the Reversing Tips. It will be filled over time.</p>
-<p>The essays and guides section as well as the malware articles section contain external articles which I wrote for GDATA Techblog.</p>
-<h2 id="faq">FAQ</h2>
-<p>I often get questions via Twitter and Reddit DMs. Here are the most frequent ones.</p>
-<h3 id="why-hedgehogs">Why hedgehogs?</h3>
-<p>So far the resources for hedgehog reversers are very sparse, almost non-existant. That needs to change.</p>
-<h3 id="how-should-i-start-learning-malware-analysis">How should I start learning malware analysis?</h3>
-<p>I plan to create an article about that. In the meantime, please check <a href="https://github.com/fwosar/malware-analysis-resources">this article by Fabian Wosar</a></p>
-<h3 id="do-i-need-a-degree-certs-to-become-a-malware-analyst">Do I need a degree / certs to become a malware analyst?</h3>
-<p>No, you don't need it. It might help to get the foot in the door but it is more important that you actually have reversing skills.</p></div>
+<div><h1 id="cpython-bytecode">CPython Bytecode</h1>
+<h2 id="decompilers-disassemblers-assemblers">Decompilers, Disassemblers, Assemblers</h2>
+<p>When decompiling CPython bytecode, you need to make sure that the decompiler supports the CPython version</p>
+<h3 id="decompilers-and-supported-python-versions">Decompilers and supported Python versions</h3>
+<p>The most versatile decompiler is probably uncompyle6.</p>
+<table>
+<thead>
+<tr>
+<th>decompiler</th>
+<th>remarks</th>
+<th>supported versions</th>
+<th>link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uncompyle6</td>
+<td></td>
+<td>1.4, 2.1-2.7, 3.0-3.8 (diff. branches, see readme)</td>
+<td><a href="https://pypi.org/project/uncompyle6/">click</a></td>
+</tr>
+<tr>
+<td>decompyle3 aka decompile3</td>
+<td>recommended to cross check with unpyc37, generally better than uncompyle6 for supported versions</td>
+<td>3.7 and 3.8</td>
+<td><a href="https://github.com/rocky/python-decompile3">click</a></td>
+</tr>
+<tr>
+<td>uncompyle</td>
+<td></td>
+<td>2.7</td>
+<td><a href="https://github.com/gstarnberger/uncompyle">click</a></td>
+</tr>
+<tr>
+<td>uncompyle2 by wibiti</td>
+<td>forked from uncompyle</td>
+<td>2.7</td>
+<td><a href="https://github.com/wibiti/uncompyle2">click</a></td>
+</tr>
+<tr>
+<td>uncompyle2 by Mysterie</td>
+<td>forked from uncompyle2 by wibiti</td>
+<td>2.5, 2.6, 2.7</td>
+<td><a href="https://github.com/Mysterie/uncompyle2">click</a></td>
+</tr>
+<tr>
+<td>unpyc3 by google</td>
+<td>by google code</td>
+<td>3.2</td>
+<td><a href="https://code.google.com/archive/p/unpyc3/">click</a></td>
+</tr>
+<tr>
+<td>unpyc3 by figment</td>
+<td>fork of google code version</td>
+<td>3.3</td>
+<td><a href="https://github.com/figment/unpyc3">click</a></td>
+</tr>
+<tr>
+<td>unpyc37</td>
+<td>fork of unpyc3</td>
+<td>3.7</td>
+<td><a href="https://github.com/andrew-tavera/unpyc37">click</a></td>
+</tr>
+<tr>
+<td>pycdc aka Decompyle++</td>
+<td></td>
+<td>various, the only decompiler for 3.9+ atm</td>
+<td><a href="https://github.com/zrax/pycdc">click</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="disassembler">Disassembler</h3>
+<p>Most decompilers also have disassembly support but there are some dedicated disassemblers.</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/dis.html">dis</a> is part of Python, supports the currently installed python version</li>
+<li><a href="https://github.com/rocky/python-xdis">python-xdis</a>, supports 1.0 - 3.10, does not rely on installed Python version</li>
+</ul>
+<p>🔗<a href="https://docs.python.org/3/library/dis.html#python-bytecode-instructions">Python Bytecode Instructions</a></p>
+<p>The disassembler is especially useful if premade tools/decompilers fail to extract anything.</p>
+<p><strong>Inspecting objects:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">rich</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">malwaremodule</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">rich</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">malwarefunction</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Disassembly:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">dis</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kn">import</span> <span class="nn">malwaremodule</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">malwarefunction</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="assembler">Assembler</h2>
+<p><a href="https://github.com/rocky/python-xasm">python-xasm</a>, for making small patches to existing bytecode</p></div>
 <hr/>
 <div class="md-source-file">
 <small>
@@ -504,7 +571,7 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-<script src="assets/javascripts/bundle.fc8c2696.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.fc8c2696.min.js"></script>
 <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
