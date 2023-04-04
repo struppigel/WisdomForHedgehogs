@@ -1,0 +1,52 @@
+site_name: Malware Analysis For Hedgehogs
+site_description: Malware analysis blog by struppigel aka Karsten Hahn
+site_url: https://struppigel.github.io/WisdomForHedgehogs/
+repo_url: https://github.com/struppigel/WisdomForHedgehogs
+repo_name: Github
+edit_uri: blob/docs/
+site_author: Karsten Hahn
+copyright: Karsten Hahn
+plugins:
+  - search
+  - rss
+  - glightbox
+  - git-revision-date
+  - mkdocs-video
+  - awesome-pages
+theme:
+  icon:
+    logo: material/virus-outline
+  name: material
+  custom_dir: overrides
+  font:
+    text: orbitron
+  features:
+    - content.code.copy
+  palette:
+    scheme: slate
+    primary: black
+    accent: yellow
+
+extra:
+  social:
+    - icon: fontawesome/brands/mastodon 
+      link: https://infosec.exchange/@struppigel
+    - icon: fontawesome/brands/twitter 
+      link: https://twitter.com/struppigel
+    - icon: fontawesome/brands/youtube 
+      link: https://www.youtube.com/@MalwareAnalysisForHedgehogs
+    - icon: fontawesome/brands/github
+      link: https://github.com/struppigel
+        
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html

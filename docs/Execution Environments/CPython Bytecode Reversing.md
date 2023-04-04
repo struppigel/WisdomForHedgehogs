@@ -1,8 +1,14 @@
-# CPython Reversing - Decompilers, Disassemblers, Assemblers
+---
+comments: true
+---
+
+# CPython Bytecode
+
+## Decompilers, Disassemblers, Assemblers
 
 When decompiling CPython bytecode, you need to make sure that the decompiler supports the CPython version
 
-## Decompilers and supported Python versions
+### Decompilers and supported Python versions
 
 The most versatile decompiler is probably uncompyle6.
 
@@ -19,7 +25,7 @@ The most versatile decompiler is probably uncompyle6.
 | unpyc37                   | fork of unpyc3                                                                                   | 3.7                                                | [click](https://github.com/andrew-tavera/unpyc37)   |
 | pycdc aka Decompyle++     |                                                                                                  | various, the only decompiler for 3.9+ atm          | [click](https://github.com/zrax/pycdc)              |
 
-## Disassembler
+### Disassembler
 
 Most decompilers also have disassembly support but there are some dedicated disassemblers.
 

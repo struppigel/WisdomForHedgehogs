@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Karsten Hahn">
+        <link rel="canonical" href="https://struppigel.github.io/WisdomForHedgehogs/CPython%20Bytecode%20Reversing/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>CPython Reversing - Decompilers, Disassemblers, Assemblers - Malware Analysis For Hedgehogs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">Malware Analysis For Hedgehogs</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="..">WisdomForHedgehogs</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">CPython Reversing - Decompilers, Disassemblers, Assemblers</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a rel="next" href="..">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="prev" >
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                <li>
+                    <a href="https://github.com/struppigel/WisdomForHedgehogs">
+                        
+                        Github
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+      
+    
+        <li class="main active"><a href="#cpython-reversing-decompilers-disassemblers-assemblers">CPython Reversing - Decompilers, Disassemblers, Assemblers</a></li>
+        
+            <li><a href="#decompilers-and-supported-python-versions">Decompilers and supported Python versions</a></li>
+        
+            <li><a href="#disassembler">Disassembler</a></li>
+        
+            <li><a href="#assembler">Assembler</a></li>
+        
+    
+    
+    </ul>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="cpython-reversing-decompilers-disassemblers-assemblers">CPython Reversing - Decompilers, Disassemblers, Assemblers</h1>
+<p>When decompiling CPython bytecode, you need to make sure that the decompiler supports the CPython version</p>
+<h2 id="decompilers-and-supported-python-versions">Decompilers and supported Python versions</h2>
+<p>The most versatile decompiler is probably uncompyle6.</p>
+<table>
+<thead>
+<tr>
+<th>decompiler</th>
+<th>remarks</th>
+<th>supported versions</th>
+<th>link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uncompyle6</td>
+<td></td>
+<td>1.4, 2.1-2.7, 3.0-3.8 (diff. branches, see readme)</td>
+<td><a href="https://pypi.org/project/uncompyle6/">click</a></td>
+</tr>
+<tr>
+<td>decompyle3 aka decompile3</td>
+<td>recommended to cross check with unpyc37, generally better than uncompyle6 for supported versions</td>
+<td>3.7 and 3.8</td>
+<td><a href="https://github.com/rocky/python-decompile3">click</a></td>
+</tr>
+<tr>
+<td>uncompyle</td>
+<td></td>
+<td>2.7</td>
+<td><a href="https://github.com/gstarnberger/uncompyle">click</a></td>
+</tr>
+<tr>
+<td>uncompyle2 by wibiti</td>
+<td>forked from uncompyle</td>
+<td>2.7</td>
+<td><a href="https://github.com/wibiti/uncompyle2">click</a></td>
+</tr>
+<tr>
+<td>uncompyle2 by Mysterie</td>
+<td>forked from uncompyle2 by wibiti</td>
+<td>2.5, 2.6, 2.7</td>
+<td><a href="https://github.com/Mysterie/uncompyle2">click</a></td>
+</tr>
+<tr>
+<td>unpyc3 by google</td>
+<td>by google code</td>
+<td>3.2</td>
+<td><a href="https://code.google.com/archive/p/unpyc3/">click</a></td>
+</tr>
+<tr>
+<td>unpyc3 by figment</td>
+<td>fork of google code version</td>
+<td>3.3</td>
+<td><a href="https://github.com/figment/unpyc3">click</a></td>
+</tr>
+<tr>
+<td>unpyc37</td>
+<td>fork of unpyc3</td>
+<td>3.7</td>
+<td><a href="https://github.com/andrew-tavera/unpyc37">click</a></td>
+</tr>
+<tr>
+<td>pycdc aka Decompyle++</td>
+<td></td>
+<td>various, the only decompiler for 3.9+ atm</td>
+<td><a href="https://github.com/zrax/pycdc">click</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disassembler">Disassembler</h2>
+<p>Most decompilers also have disassembly support but there are some dedicated disassemblers.</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/dis.html">dis</a> is part of Python, supports the currently installed python version</li>
+<li><a href="https://github.com/rocky/python-xdis">python-xdis</a>, supports 1.0 - 3.10, does not rely on installed Python version</li>
+</ul>
+<p>🔗<a href="https://docs.python.org/3/library/dis.html#python-bytecode-instructions">Python Bytecode Instructions</a></p>
+<p>The disassembler is especially useful if premade tools/decompilers fail to extract anything.</p>
+<p><strong>Inspecting objects:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">rich</span>
+<span class="kn">import</span> <span class="nn">malwaremodule</span>
+<span class="n">rich</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">malwarefunction</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Disassembly:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">dis</span>
+<span class="kn">import</span> <span class="nn">malwaremodule</span>
+<span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">malwarefunction</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="assembler">Assembler</h2>
+<p><a href="https://github.com/rocky/python-xasm">python-xasm</a>, for making small patches to existing bytecode</p></div>
+                </div>
+        </div>
+
+    <hr>
+    <footer class="container">
+        
+        <center>Karsten Hahn</center>
+        
+        <center>Documentation built with <a href="http://www.mkdocs.org">MkDocs</a> and <a href="http://kristopolous.github.io/BOOTSTRA.386">BOOTSTRA.386</a>.</center>
+    </footer>
+        <script src="../search/main.js"></script>
+    </body>
+</html>

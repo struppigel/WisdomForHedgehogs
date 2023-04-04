@@ -1,0 +1,30 @@
+nav:
+    - index.md
+    - ...
+    - Essays / Guides (GDATA):
+        - Identifying file manipulation: https://www.gdatasoftware.com/blog/2022/09/37511-detecting-file-manipulation-in-system-files
+        - Malware vaccines: https://www.gdatasoftware.com/blog/2022/01/malware-vaccines
+        - Hashing algorithms: https://www.gdatasoftware.com/blog/2021/09/an-overview-of-malware-hashing-algorithms
+        - Malware naming - AV detection names: https://www.gdatasoftware.com/blog/2019/08/35146-taming-the-mess-of-av-detection-names
+        - Malware naming hell: https://www.gdatasoftware.com/blog/malware-family-naming-hell
+        - Open source ransomware: https://www.gdatasoftware.com/blog/2016/11/29289-it-s-educational-on-the-no-1-argument-for-open-source-ransomware
+        - Ransomware identification: https://www.gdatasoftware.com/blog/2019/06/31666-ransomware-identification-for-the-judicious-analyst
+        - Why malware detection is hard: https://www.gdatasoftware.com/blog/2022/06/37445-malware-detection-is-hard
+    - Malware Articles (GDATA):
+        - Allcome: https://www.gdatasoftware.com/blog/2022/02/37239-allcome-clipbanker-is-a-newcomer-in-malware-underground-forums
+        - Babax: https://www.gdatasoftware.com/blog/2020/11/36459-babax-stealer-rebrands-to-osno-installs-rootkit
+        - ChromeLoader / Choziosi: https://www.gdatasoftware.com/blog/2022/01/37236-qr-codes-on-twitter-deliver-malicious-chrome-extension
+        - CryptBot: https://www.gdatasoftware.com/blog/2020/02/35802-bitbucket-abused-as-malware-slinger
+        - Cyrat: https://www.gdatasoftware.com/blog/cyrat-ransomware
+        - GarrantyDecrypt: https://www.gdatasoftware.com/blog/2019/04/31643-garrantydecrypt-ransomware-spyhunter
+        - Ginzo: https://www.gdatasoftware.com/blog/2022/03/ginzo-free-malware
+        - IceRAT: https://www.gdatasoftware.com/blog/icerat-evades-antivirus-by-using-jphp
+        - Netfilter rootkit: https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit
+        - NetWireRAT: https://www.gdatasoftware.com/blog/netwire-rat-via-pasteee-and-ms-excel
+        - SectopRAT: https://www.gdatasoftware.com/blog/2019/11/35548-new-sectoprat-remote-access-malware-utilizes-second-desktop-to-control-browsers
+        - Spora: https://www.gdatasoftware.com/blog/2017/01/29442-spora-worm-and-ransomware
+        - SteamHide: https://www.gdatasoftware.com/blog/2021/06/36861-malware-hides-in-steam-profile-images
+        - STRRAT: https://www.gdatasoftware.com/blog/strrat-crimson
+        - T-RAT 2.0: https://www.gdatasoftware.com/blog/trat-control-via-smartphone
+        - Try2Cry: https://www.gdatasoftware.com/blog/2020/07/36200-ransomware-tries-to-worm
+    - About me.md
