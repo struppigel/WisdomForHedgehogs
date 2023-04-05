@@ -9,3 +9,5 @@ I have been working as a Malware Analyst for GDATA CyberDefense AG from January 
 Half of my work time was devoted to the creation of detection signatures for GDATA antivirus products. The other half I worked for the Public Relations department which included providing technical background checks for articles and statements, talks, webinars, interviews and writing blog articles for GDATA Techblog. 
 
 Since November 2015 I am Lead Engineer for a small team. Our main responsibility is the improvement of detection and prevention technologies for GDATA's mEDR product. 
+
+I am part of the [Ransomware Hunting Team](https://en.wikipedia.org/wiki/The_Ransomware_Hunting_Team).

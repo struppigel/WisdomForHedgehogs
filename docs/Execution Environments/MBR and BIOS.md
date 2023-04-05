@@ -1,3 +1,7 @@
+---
+comments: true
+---
+
 MBR malware is not that common anymore and will decline more with the advent of UEFI. The most notable occurences were MBR ransomware families that were created with a publicly available MBR image builder by WobbyChip and of course Petya.
 
 MBR malware is still one of the most fascinating topics for me and a good starting point if you are interested in UEFI later.
@@ -83,6 +87,7 @@ cpu: ips=90000000
 You can use _dd_ (Unix) or _bximage_ command.
 
 _bximage_ is part of bochs. Choose the following options 
+
 * Enter 1 to create a new hard disk image
 * Choose _hd_
 * Choose \[flat\]
