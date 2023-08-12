@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/Infographics/</loc>
+         <lastmod>2023-08-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/MBR%20and%20BIOS/</loc>
          <lastmod>2023-08-12</lastmod>
          <changefreq>daily</changefreq>
@@ -32,6 +37,11 @@
     </url>
     <url>
          <loc>https://struppigel.github.io/WisdomForHedgehogs/testpage/Publications%20at%20GDATA/</loc>
+         <lastmod>2023-08-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://struppigel.github.io/WisdomForHedgehogs/testpage/Unpacking%20Tips/</loc>
          <lastmod>2023-08-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
