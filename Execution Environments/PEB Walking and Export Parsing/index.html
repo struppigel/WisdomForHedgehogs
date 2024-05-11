@@ -7,12 +7,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Malware analysis blog by struppigel aka Karsten Hahn" name="description"/>
 <meta content="Karsten Hahn" name="author"/>
-<link href="https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/PowerShell/" rel="canonical"/>
-<link href="../PEB%20Walking%20and%20Export%20Parsing/" rel="prev"/>
-<link href="../PyInstaller/" rel="next"/>
+<link href="https://struppigel.github.io/WisdomForHedgehogs/Execution%20Environments/PEB%20Walking%20and%20Export%20Parsing/" rel="canonical"/>
+<link href="../MBR%20and%20BIOS/" rel="prev"/>
+<link href="../PowerShell/" rel="next"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-9.1.2" name="generator"/>
-<title>PowerShell - Malware Analysis For Hedgehogs</title>
+<title>PEB Walking and Export Parsing - Malware Analysis For Hedgehogs</title>
 <link href="../../assets/stylesheets/main.7bf56d0a.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -36,7 +36,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#deobfuscation-basics">
+<a class="md-skip" href="#peb-walking-offsets">
           Skip to content
         </a>
 </div>
@@ -60,7 +60,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              PowerShell
+              PEB Walking and Export Parsing
             
           </span>
 </div>
@@ -164,19 +164,14 @@
         MBR and BIOS
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../PEB%20Walking%20and%20Export%20Parsing/">
-        PEB Walking and Export Parsing
-      </a>
-</li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          PowerShell
+          PEB Walking and Export Parsing
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        PowerShell
+        PEB Walking and Export Parsing
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -185,94 +180,17 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#deobfuscation-basics">
-    Deobfuscation Basics
-  </a>
-<nav aria-label="Deobfuscation Basics" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#beautifier">
-    Beautifier
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#command-help">
-    Command Help
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#inspect-variables">
-    Inspect variables
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#instruction">
-    '&amp;' Instruction
+<a class="md-nav__link" href="#pe-export-parsing-offsets">
+    PE Export Parsing Offsets
   </a>
 </li>
 </ul>
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#obfuscation-methods">
-    Obfuscation methods
-  </a>
-<nav aria-label="Obfuscation methods" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#backticks">
-    Backticks `
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#carets">
-    Carets \^
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#empty-quotes">
-    Empty Quotes ""
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#escaped-quotes">
-    Escaped Quotes \"
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#concatenation">
-    Concatenation
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#obfuscators">
-    Obfuscators
-  </a>
-<nav aria-label="Obfuscators" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#invoke-obfuscation">
-    Invoke-Obfuscation
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#invoke-psobfuscation">
-    Invoke-PSObfuscation
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#resources">
-    Resources
-  </a>
-</li>
-</ul>
-</nav>
+<a class="md-nav__link" href="../PowerShell/">
+        PowerShell
+      </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../PyInstaller/">
@@ -452,90 +370,8 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#deobfuscation-basics">
-    Deobfuscation Basics
-  </a>
-<nav aria-label="Deobfuscation Basics" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#beautifier">
-    Beautifier
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#command-help">
-    Command Help
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#inspect-variables">
-    Inspect variables
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#instruction">
-    '&amp;' Instruction
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#obfuscation-methods">
-    Obfuscation methods
-  </a>
-<nav aria-label="Obfuscation methods" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#backticks">
-    Backticks `
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#carets">
-    Carets \^
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#empty-quotes">
-    Empty Quotes ""
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#escaped-quotes">
-    Escaped Quotes \"
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#concatenation">
-    Concatenation
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#obfuscators">
-    Obfuscators
-  </a>
-<nav aria-label="Obfuscators" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#invoke-obfuscation">
-    Invoke-Obfuscation
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#invoke-psobfuscation">
-    Invoke-PSObfuscation
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#resources">
-    Resources
+<a class="md-nav__link" href="#pe-export-parsing-offsets">
+    PE Export Parsing Offsets
   </a>
 </li>
 </ul>
@@ -545,86 +381,209 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>PowerShell</h1>
-<div><hr/>
-<p>PowerShell malware is commonly a dropper or downloader for the actual payload which means they are often rather at the beginning of the infection chain. </p>
-<p>Because PowerShell runs on the .NET Common Language Runtime, it is easy to dynamically load and execute .NET assemblies via PowerShell, making this a common target of PowerShell malware.</p>
-<p>Malicious Windows Shortcut (LNK) files and Batch files may be used to call PowerShell code, which is why obfuscation techniques related to Batch are often seen in conjunction with PowerShell commands.</p>
-<p>Commands for PowerShell are also known as cmdlets. They are written in .NET or PowerShell.</p>
-<h2 id="deobfuscation-basics">Deobfuscation Basics</h2>
-<p>The following sections will help you to deobfuscate PowerShell samples.</p>
-<h3 id="beautifier">Beautifier</h3>
-<p>Start with beautifying the code, e.g., via:🔗<a href="https://github.com/DTW-DanWard/PowerShell-Beautifier">Powershell-Beautifier</a> by DTW-DanWard</p>
-<h3 id="command-help">Command Help</h3>
-<p>Use the cmdlets <em>Get-Help</em>, <em>Get-Command</em> and <em>Get-Member</em> in a PowerShell terminal to read about unknown commands you find in a script.</p>
-<p>Before you start, run <em>Update-Help</em> to download the latest help files. </p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/updatehelpcommand_posh.png"><img alt="Update help command" src="../images/updatehelpcommand_posh.png"/></a></p>
-<p>To get help for a command, e.g., for <em>Update-Help</em>, execute</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">Get-Help</span> <span class="n">-Name</span> <span class="nb">Update-Help</span>
-</span></code></pre></div>
-<p>More on this topic: <a href="https://learn.microsoft.com/en-us/powershell/scripting/learn/ps101/02-help-system?view=powershell-7.3">PowerShell 101 - The Help System</a></p>
-<h3 id="inspect-variables">Inspect variables</h3>
-<p>To inspect variable contents, use:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>Write-Output "Hello" "2" "3" # adds newlines
-</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>Write-Host "Hello" "2" "3"   # without newlines
-</span></code></pre></div>
-<h3 id="instruction">'&amp;' Instruction</h3>
-<p>The '&amp;' is like a call instruction. General syntax: </p>
-<p><code>&amp; command [args]</code></p>
-<p>Example:</p>
-<p><code>&amp; ($SomeObfusVar1) $SomeObfusVar2;</code></p>
-<p>Replace this with an inspect statement like <em>Write-Output</em> or <em>Write-Host</em></p>
-<h2 id="obfuscation-methods">Obfuscation methods</h2>
-<p>This section lists common obfuscation that is specific for PowerShell.</p>
-<h3 id="backticks">Backticks `</h3>
-<p>Backticks are used for escaping characters in PowerShell and wrapping lines of code. It’s commonly used to escape non-special characters and break-up words to prevent pattern matching.</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">if</span> <span class="p">(</span> <span class="p">${</span><span class="n">CoM</span><span class="p">`</span><span class="n">P</span><span class="p">`</span><span class="n">U</span><span class="p">`</span><span class="n">TERn</span><span class="p">`</span><span class="n">AME</span><span class="p">}</span> <span class="o">-eq</span> <span class="p">${</span><span class="n">Nu</span><span class="p">`</span><span class="n">LL</span><span class="p">}</span>
-</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">if</span> <span class="p">(</span> <span class="p">${</span><span class="n">CoMPUTERnAME</span><span class="p">}</span> <span class="o">-eq</span> <span class="p">${</span><span class="n">NuLL</span><span class="p">}</span>
-</span></code></pre></div>
-<h3 id="carets">Carets \^</h3>
-<p>Carets are escape characters for the Windows command line.</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">echo </span><span class="n">i</span><span class="p">^</span><span class="n">eX</span><span class="p">(^</span><span class="s2">"^I^e^`X^`</span>
-</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="s2">echo ieX("</span><span class="n">Ie</span><span class="p">`</span><span class="n">X</span><span class="p">`</span>
-</span></code></pre></div>
-<h3 id="empty-quotes">Empty Quotes ""</h3>
-<p>Empty quotes are used to break up variables in PowerShell. </p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">(</span><span class="n">g</span><span class="s1">''</span><span class="n">v</span> <span class="n">KUs</span><span class="p">).</span><span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="p">(</span><span class="nb">gv </span><span class="n">KUs</span><span class="p">).</span><span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-</span></code></pre></div>
-<h3 id="escaped-quotes">Escaped Quotes \"</h3>
-<p>When dealing with layered PowerShell scripts, escaped empty quotes may be passed to substrings.</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="p">(</span><span class="n">g</span><span class="p">\</span><span class="s1">'\'</span><span class="n">v</span> <span class="n">KUs</span><span class="p">).</span><span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="p">(</span><span class="n">g</span><span class="s1">''</span><span class="n">v</span> <span class="n">KUs</span><span class="p">).</span><span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span>
-</span></code></pre></div>
-<h3 id="concatenation">Concatenation</h3>
-<p>This is not an effective obfuscation against reversers but it works against pattern matching.</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">New-Object</span> <span class="p">$(</span><span class="s2">"Sys"</span><span class="p">+</span><span class="s2">"tem.Refl"</span><span class="p">+</span><span class="s2">"ection.Ass"</span><span class="p">+</span><span class="s2">"embl"</span><span class="p">+</span><span class="s2">"yName"</span><span class="p">)</span>
-</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nb">New-Object</span> <span class="p">$(</span><span class="s2">"System.Reflection.AssemblyName"</span><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="obfuscators">Obfuscators</h2>
-<p>The following obfuscators and obfuscation frameworks are commonly used to during the creation of PowerShell malware. You can play around with them and see how their output looks like.</p>
-<h3 id="invoke-obfuscation">Invoke-Obfuscation</h3>
-<p>🔗<a href="https://github.com/danielbohannon/Invoke-Obfuscation">Invoke-Obfuscation</a></p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/invokeObfuscation.png"><img alt="Invoke Obfuscation screenshot" src="../images/invokeObfuscation.png"/></a></p>
-<h3 id="invoke-psobfuscation">Invoke-PSObfuscation</h3>
-<p>🔗<a href="https://github.com/gh0x0st/Invoke-PSObfuscation">Invoke-PSObfuscation</a></p>
-<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/0bFu5c4t3d.jpg"><img alt="Invoke-PSOBfuscation obfuscation example" src="../images/0bFu5c4t3d.jpg"/></a></p>
-<h2 id="resources">Resources</h2>
-<p>🔗<a href="https://leanpub.com/powershell101">PowerShell 101: The No-Nonsense Beginner's Guide to PowerShell</a></p>
-<p>This is a leanpup book by Mike F. Robbins.</p>
-<p>🔗<a href="https://www.offsec.com/offsec/powershell-obfuscation/">Powershell Obfuscation</a></p>
-<p>The developer of Invoke-PSObfuscation describes PowerShell obfuscation techniques with specific code snippets in this blog article.</p>
-<p>You will find the very same code snippets in slight variations throughout PowerShell malware. So getting familiar with them will help to speed up analysis.</p>
-<p>🔗<a href="https://unit42.paloaltonetworks.com/practical-behavioral-profiling-of-powershell-scripts-through-static-analysis-part-2/">Practical Behavioral Profiling of PowerShell Scripts through Static Analysis (Part 2)</a></p>
-<p>The section <strong>Normalization / Obfuscation Removal</strong> provides an overview on common obfuscation techniques.</p>
-<p>🔗<a href="https://i.blackhat.com/briefings/asia/2018/asia-18-bohannon-invoke_dosfuscation_techniques_for_fin_style_dos_level_cmd_obfuscation-wp.pdf">DOSfuscation: Exploring the Depths of Cmd.exe Obfuscation and Detection Techniques</a></p>
-<p>This is a paper by FireEye on Batch obfuscation techniques. FireEye probably established the term <strong>DOSfuscation</strong>. While this is not actually describing PowerShell obfuscation, DOSfuscation is commonly seen in conjunction with PowerShell code because malware often calls PowerShell.exe via cmd.exe.</p></div>
+<div><p>Use the following tables as a reference to markup code that performs PEB walking and export parsing with the purpose of resolving imports dynamically.</p>
+<h1 id="peb-walking-offsets">PEB Walking Offsets</h1>
+<p>For structure definitions consult 🔗<a href="https://www.vergiliusproject.com">VergiliusProject</a></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Win 7, 8, 10: 32 bit</th>
+<th>Win 7, 8, 10, 11: 64 bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_PEB</td>
+<td>fs:0x30</td>
+<td>gs:0x60</td>
+</tr>
+<tr>
+<td>_PEB32 -&gt; _PEB_LDR_DATA</td>
+<td>n/a</td>
+<td>0xc</td>
+</tr>
+<tr>
+<td>_PEB64 -&gt; _PEB_LDR_DATA</td>
+<td>n/a</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>_PEB -&gt; _PEB_LDR_DATA</td>
+<td>0xc</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>_PEB_LDR_DATA -&gt; InLoadOrderModuleList</td>
+<td>0xc</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>_PEB_LDR_DATA -&gt; InMemoryOrderModuleList</td>
+<td>0x14</td>
+<td>0x20</td>
+</tr>
+<tr>
+<td>_PEB_LDR_DATA -&gt; InInitializationOrderModuleList</td>
+<td>0x1c</td>
+<td>0x30</td>
+</tr>
+<tr>
+<td>_LDR_DATA_TABLE_ENTRY -&gt; FullDllName</td>
+<td>0x24</td>
+<td>0x48</td>
+</tr>
+<tr>
+<td>_LDR_DATA_TABLE_ENTRY -&gt; BaseDllName</td>
+<td>0x2c</td>
+<td>0x58</td>
+</tr>
+<tr>
+<td>_LDR_DATA_TABLE_ENTRY -&gt; DllBase</td>
+<td>0x18</td>
+<td>0x30</td>
+</tr>
+<tr>
+<td>InLoadOrderLinks -&gt; FullDllName</td>
+<td>0x24</td>
+<td>0x48</td>
+</tr>
+<tr>
+<td>InLoadOrderLinks -&gt; BaseDllName</td>
+<td>0x2c</td>
+<td>0x58</td>
+</tr>
+<tr>
+<td>InLoadOrderLinks -&gt; DllBase</td>
+<td>0x18</td>
+<td>0x30</td>
+</tr>
+<tr>
+<td>InMemoryOrderLinks -&gt; FullDllName</td>
+<td>0x1c</td>
+<td>0x38</td>
+</tr>
+<tr>
+<td>InMemoryOrderLinks -&gt; BaseDllName</td>
+<td>0x24</td>
+<td>0x48</td>
+</tr>
+<tr>
+<td>InMemoryOrderLinks -&gt; DllBase</td>
+<td>0x10</td>
+<td>0x20</td>
+</tr>
+<tr>
+<td>InInitializationOrderLinks -&gt; FullDllName</td>
+<td>0x14</td>
+<td>0x28</td>
+</tr>
+<tr>
+<td>InInitializationOrderLinks -&gt; BaseDllName</td>
+<td>0x1c</td>
+<td>0x38</td>
+</tr>
+<tr>
+<td>InInitializationOrderLinks -&gt; DllBase</td>
+<td>0x8</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>_UNICODE_STRING -&gt; Length</td>
+<td>0x0</td>
+<td>0x0</td>
+</tr>
+<tr>
+<td>_UNICODE_STRING -&gt; MaximumLength</td>
+<td>0x2</td>
+<td>0x2</td>
+</tr>
+<tr>
+<td>_UNICODE_STRING -&gt; Buffer</td>
+<td>0x4</td>
+<td>0x8</td>
+</tr>
+</tbody>
+</table>
+<p>Also helpful for markup: <a href="https://hex-rays.com/products/decompiler/manual/tricks.shtml#03">ContainingRecord Macro</a></p>
+<h2 id="pe-export-parsing-offsets">PE Export Parsing Offsets</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>32 bit</th>
+<th>64 bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e_lfanew</td>
+<td>0x3c</td>
+<td>0x3c</td>
+</tr>
+<tr>
+<td>e_lfanew -&gt; OptionalHeader, magic</td>
+<td>0x18</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>OptionalHeader -&gt; magic concrete value</td>
+<td>0x10b</td>
+<td>0x20b</td>
+</tr>
+<tr>
+<td>e_lfanew-&gt;OptionalHeader.SizeOfImage</td>
+<td>0x50</td>
+<td>0x50</td>
+</tr>
+<tr>
+<td>e_lfanew -&gt; ExportDataDir, VA</td>
+<td>0x78</td>
+<td>0x88</td>
+</tr>
+<tr>
+<td>e_lfanew -&gt; ExportDataDir, Size</td>
+<td>0x7c</td>
+<td>0x8c</td>
+</tr>
+<tr>
+<td>OptionalHeader -&gt; ExportDataDir</td>
+<td>0x60</td>
+<td>0x70</td>
+</tr>
+<tr>
+<td>OptionalHeader -&gt; ImportDataDir</td>
+<td>0x68</td>
+<td>0x78</td>
+</tr>
+<tr>
+<td>ExportDataDir -&gt; NrofNames</td>
+<td>0x18</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>ExportDataDir -&gt; AddressOfFunctions</td>
+<td>0x1c</td>
+<td>0x1c</td>
+</tr>
+<tr>
+<td>ExportDataDir -&gt; AddressOfNames</td>
+<td>0x20</td>
+<td>0x20</td>
+</tr>
+<tr>
+<td>ExportDataDir -&gt; AddressOfNameOrdinals</td>
+<td>0x24</td>
+<td>0x24</td>
+</tr>
+</tbody>
+</table></div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       Last update:
-      2023-04-04
+      2024-05-11
     
   </small>
 </div>
