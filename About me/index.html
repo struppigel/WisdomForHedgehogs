@@ -35,6 +35,9 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
+<a class="md-skip" href="#job">
+          Skip to content
+        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -349,13 +352,36 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>About me</h1>
 <div><p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../sharbeutz.jpg"><img alt="Me hanging upside down from a tree" src="../sharbeutz.jpg"/></a></p>
+<h1 id="job">Job</h1>
 <p>I started working as Malware Analyst for GDATA CyberDefense AG in January 2015. My main tasks were writing of detection signatures for GDATA's antivirus products as well as taking care of customer submissions.</p>
 <p>From 2022 until March 2024 I was Lead Engineer for the Protection Engineering team and responsible to improve detection and prevention technologies for GDATA's mEDR product. </p>
 <p>Since March 2024 I am Principal Malware Researcher at GDATA. I create internal trainings, assist the PR team with technical knowledge, create infrastructure and tools for hunting new malware and monitoring threats, assist others in blog article creation and write articles myself.</p>
-<p>I was part of the <a href="https://en.wikipedia.org/wiki/The_Ransomware_Hunting_Team">Ransomware Hunting Team</a>.</p>
-<p>Karsten Hahn</p></div>
+<h1 id="ransomware-hunting-team">Ransomware Hunting Team</h1>
+<p>I was part of the <a href="https://en.wikipedia.org/wiki/The_Ransomware_Hunting_Team">Ransomware Hunting Team</a> and contributed mainly with by hunting new ransomware families and finding new variants for known families, e.g., I provided ca 80% of the STOP/DJVU ransomware samples. I also wrote a <a href="https://github.com/struppigel/STOP-DJVU-Ransomware-Vaccine">STOP/DJVU vaccine</a> based on the analysis of John Parol. </p>
+<p>Many of the contributions are listed in the weekly BleepingComputer articles.</p>
+<h1 id="malware-findings">Malware Findings</h1>
+<p>Hunting for new malware families is one of my favorite tasks. When families are newly discovered, they are often still in-development and lack important features. Many never become significant. Others unexpectedly grow. I list some of those findings below. </p>
+<p>I posted many stealers and ransomware families only as tweets and did not keep track. So this is a selection of the some families that had notable impact or in-depth articles behind them.</p>
+<h2 id="netfilter-rootkit">Netfilter Rootkit</h2>
+<p><strong>First tweet:</strong> <a href="https://twitter.com/struppigel/status/1405483373280235520">Netfilter rootkit tweet</a>
+<strong>Article link:</strong> <a href="https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit">Microsoft signed a malicious Netfilter rootkit</a></p>
+<p>While many cite <a href="https://msrc.microsoft.com/blog/2021/06/investigating-and-mitigating-malicious-drivers/">Microsofts article</a> as the first to mention Netfilter, it was me who discovered the rootkit and submitted it to Microsoft. After I published my article, Microsoft had already had enough time to investigate and quickly responsed to my article on the same day. They were not happy about my article.</p>
+<p>I still regret that I named this rootkit Netfilter because Netfilter is a legitimate framework for the Linux kernel. It is a prime example why no legitimate program names should be used for any malware family. But I learned from my mistakes.</p>
+<p>This particular rootkit is not significant anymore but its discovery shed light on a bigger issue: The certification in the Windows Hardware Compatibility Program allows threat actors to get their malware signed by Microsoft. Similar rootkits are still abusing this today.</p>
+<h2 id="sectoprat">SectopRAT</h2>
+<p><strong>Article link:</strong> <a href="https://www.gdatasoftware.com/blog/2019/11/35548-new-sectoprat-remote-access-malware-utilizes-second-desktop-to-control-browsers">New SectopRAT: Remote access malware utilizes second desktop to control browsers</a></p>
+<p>This malware was discovered by <a href="https://twitter.com/malwrhunterteam/status/1195288774957244416">MalwareHunterTeam</a>. I was the first to write an analysis article about it.</p>
+<p>This malware is got its name from utilizing a second desktop on Windows to hide itself. It is a .NET based remote access malware that was unfinished at the time of discovery. It is still in the wild today.</p>
+<h2 id="strrat">StrRat</h2>
+<p><strong>Article link:</strong> StrRat</p>
+<p>This Java based RAT was in-development when I found it in June 2020 and had a non-functioning ransomware module. Although it is Java based, it ships with a loader that installs the JVM on Windows systems, making it able to infect systems which don't have the JVM installed. </p>
+<p>StrRat is still in the wild today. Malpedia lists more than 14 articles by now with the last one dated to March 2024.</p>
+<h2 id="wannacry">WannaCry</h2>
+<p><a href="https://twitter.com/struppigel/status/846241982347427840">Tweet about first WannaCry version</a>. </p>
+<p>WannaCry started as an insignificant .NET ransomware. The very first strain had no worm component and was only worth a tweet on March 27, 20017</p>
+<p>There was another researcher who found this first WannaCry version at roughly the same time. However, I cannot find a reference of it anymore.</p>
+<p>The pandemic outbreak with WannaCry 2.0 began 12th of May 2017 and has made history.</p></div>
 <hr/>
 <div class="md-source-file">
 <small>
