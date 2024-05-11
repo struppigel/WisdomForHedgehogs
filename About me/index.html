@@ -364,8 +364,8 @@
 <p>Hunting for new malware families is one of my favorite tasks. When families are newly discovered, they are often still in-development and lack important features. Many never become significant. Others unexpectedly grow. I list some of those findings below. </p>
 <p>I posted many stealers and ransomware families only as tweets and did not keep track. So this is a selection of the some families that had notable impact or in-depth articles behind them.</p>
 <h2 id="netfilter-rootkit">Netfilter Rootkit</h2>
-<p><strong>First tweet:</strong> <a href="https://twitter.com/struppigel/status/1405483373280235520">Netfilter rootkit tweet</a>
-<strong>Article link:</strong> <a href="https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit">Microsoft signed a malicious Netfilter rootkit</a></p>
+<p><strong>First tweet:</strong> <a href="https://twitter.com/struppigel/status/1405483373280235520">Netfilter rootkit tweet</a></p>
+<p><strong>Article link:</strong> <a href="https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit">Microsoft signed a malicious Netfilter rootkit</a></p>
 <p>While many cite <a href="https://msrc.microsoft.com/blog/2021/06/investigating-and-mitigating-malicious-drivers/">Microsofts article</a> as the first to mention Netfilter, it was me who discovered the rootkit and submitted it to Microsoft. After I published my article, Microsoft had already had enough time to investigate and quickly responsed to my article on the same day. They were not happy about my article.</p>
 <p>I still regret that I named this rootkit Netfilter because Netfilter is a legitimate framework for the Linux kernel. It is a prime example why no legitimate program names should be used for any malware family. But I learned from my mistakes.</p>
 <p>This particular rootkit is not significant anymore but its discovery shed light on a bigger issue: The certification in the Windows Hardware Compatibility Program allows threat actors to get their malware signed by Microsoft. Similar rootkits are still abusing this today.</p>
@@ -374,7 +374,7 @@
 <p>This malware was discovered by <a href="https://twitter.com/malwrhunterteam/status/1195288774957244416">MalwareHunterTeam</a>. I was the first to write an analysis article about it.</p>
 <p>This malware is got its name from utilizing a second desktop on Windows to hide itself. It is a .NET based remote access malware that was unfinished at the time of discovery. It is still in the wild today.</p>
 <h2 id="strrat">StrRat</h2>
-<p><strong>Article link:</strong> StrRat</p>
+<p><strong>Article link:</strong> <a href="https://www.gdatasoftware.com/blog/strrat-crimson">New Java STRRAT ships with .crimson ransomware module</a></p>
 <p>This Java based RAT was in-development when I found it in June 2020 and had a non-functioning ransomware module. Although it is Java based, it ships with a loader that installs the JVM on Windows systems, making it able to infect systems which don't have the JVM installed. </p>
 <p>StrRat is still in the wild today. Malpedia lists more than 14 articles by now with the last one dated to March 2024.</p>
 <h2 id="wannacry">WannaCry</h2>
