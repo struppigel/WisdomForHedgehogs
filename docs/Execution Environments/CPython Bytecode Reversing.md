@@ -23,7 +23,8 @@ The most versatile decompiler is probably uncompyle6.
 | unpyc3 by google           | by google code                                                                                   | 3.2                                                | [click](https://code.google.com/archive/p/unpyc3/)  |
 | unpyc3 by figment                   | fork of google code version                                                                      | 3.3                                                | [click](https://github.com/figment/unpyc3)          |
 | unpyc37                   | fork of unpyc3                                                                                   | 3.7                                                | [click](https://github.com/andrew-tavera/unpyc37)   |
-| pycdc aka Decompyle++     |                                                                                                  | various, the only decompiler for 3.9+ atm          | [click](https://github.com/zrax/pycdc)              |
+| pycdc aka Decompyle++     |                                                                                                  | wants to support all versions but unsupported opcodes with 3.10+         | [click](https://github.com/zrax/pycdc)              |
+| pylingual      |     uses "transformer models to learn new Python bytecode specifications as they are released.", 256kb limit             | all (?)       | [click](https://pylingual.io/)              |
 
 ### Disassembler
 

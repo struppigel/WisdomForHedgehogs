@@ -10,11 +10,11 @@ Knowledge and education are one of the most valuable commodities in this world. 
 
 Hence, I started to [create Youtube videos myself](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A). These were of low quality in the beginning, but I figured I will learn and improve on the way. My videos in turn inspired others to do the same, among others [OALabs](https://www.youtube.com/@OALABS/videos) and [Michael Gillespie](https://www.youtube.com/@Demonslay335/videos). That was indeed one of the greatest things I could wish for to happen -- that my work would inspire others to share their knowledge too, so they improve availability of educational resources and inspire people themselves.
 
-That could have been it, however, at some point I ended up watching old videos of myself just to remember how I solved a certain problem in the past. After I did this for the third time, I finally started taking actual notes which I will convert to publicly available articles over time.
+That could've been the end of it, however, at some point I felt the need to watch old videos of myself just to recall how I solved a certain problem in the past. After the third time of doing this, I finally started taking notes, some of which I am sharing here.
 
 ## Content
 
-The most interesting section for you are probably the Reversing Tips. It will be filled over time.
+The most interesting section for you are probably the Reversing Tips. 
 
 The essays and guides section as well as the malware articles section contain external articles which I wrote for GDATA Techblog.
 
@@ -28,16 +28,10 @@ So far the resources for hedgehog reversers are very sparse, almost non-existant
 
 ### How should I start learning malware analysis?
 
-I plan to create an article about that. In the meantime, please check [this article by Fabian Wosar](https://github.com/fwosar/malware-analysis-resources)
+I created a course for beginners, which you find on [Udemy here](https://www.udemy.com/course/windows-malware-analysis-for-hedgehogs-beginner-training/?referralCode=EE0E2DC9FA7388FF25B7)
+
+You may also want to check [this article with resources by Fabian Wosar](https://github.com/fwosar/malware-analysis-resources)
 
 ### Do I need a degree / certs to become a malware analyst?
 
-No, you don't need it. It might help to get the foot in the door but it is more important that you actually have reversing skills.
-
-### Can you decrypt STOP/DJVU ransomware encrypted files?
-
-This is in most cases not possible. Please check first at [id-ransomware](https://id-ransomware.malwarehunterteam.com/) if it is really STOP/DJVU ransomware by uploading a ransom note and an encrypted file. The site will also tell you if you have a chance to decrypt files without paying criminals.
-
-### Can you decrypt other ransomware encrypted files?
-
-This site will tell you: [id-ransomware](https://id-ransomware.malwarehunterteam.com/)
+No, you don't need it. It might help to get the foot in the door but it is more important that you actually have reverse engineering skills.

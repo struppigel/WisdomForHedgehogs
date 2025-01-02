@@ -7,12 +7,16 @@ nav:
         - Hashing algorithms: https://www.gdatasoftware.com/blog/2021/09/an-overview-of-malware-hashing-algorithms
         - Malware naming - AV detection names: https://www.gdatasoftware.com/blog/2019/08/35146-taming-the-mess-of-av-detection-names
         - Malware naming hell: https://www.gdatasoftware.com/blog/malware-family-naming-hell
+        - Malware sophistication: https://www.gdatasoftware.com/blog/2024/08/37995-malware-sophistication
         - Open source ransomware: https://www.gdatasoftware.com/blog/2016/11/29289-it-s-educational-on-the-no-1-argument-for-open-source-ransomware
         - Ransomware identification: https://www.gdatasoftware.com/blog/2019/06/31666-ransomware-identification-for-the-judicious-analyst
+        - Sandboxes are not an AV: https://www.gdatasoftware.com/blog/2024/09/38031-sandbox-scores-are-not-an-antivirus-replacement
         - Why malware detection is hard: https://www.gdatasoftware.com/blog/2022/06/37445-malware-detection-is-hard
     - Malware Articles (GDATA):
         - Allcome: https://www.gdatasoftware.com/blog/2022/02/37239-allcome-clipbanker-is-a-newcomer-in-malware-underground-forums
         - Babax: https://www.gdatasoftware.com/blog/2020/11/36459-babax-stealer-rebrands-to-osno-installs-rootkit
+        - BadSpace: https://www.gdatasoftware.com/blog/2024/06/37947-badspace-backdoor
+        - BBTok: https://www.gdatasoftware.com/blog/2024/09/38039-bbtok-deobfuscating-net-loader
         - ChromeLoader / Choziosi: https://www.gdatasoftware.com/blog/2022/01/37236-qr-codes-on-twitter-deliver-malicious-chrome-extension
         - CryptBot: https://www.gdatasoftware.com/blog/2020/02/35802-bitbucket-abused-as-malware-slinger
         - Cyrat: https://www.gdatasoftware.com/blog/cyrat-ransomware
@@ -21,6 +25,8 @@ nav:
         - IceRAT: https://www.gdatasoftware.com/blog/icerat-evades-antivirus-by-using-jphp
         - Netfilter rootkit: https://www.gdatasoftware.com/blog/microsoft-signed-a-malicious-netfilter-rootkit
         - NetWireRAT: https://www.gdatasoftware.com/blog/netwire-rat-via-pasteee-and-ms-excel
+        - RisePro: https://www.gdatasoftware.com/blog/2024/03/37885-risepro-stealer-campaign-github
+        - Rust Shellcode Loader: https://www.gdatasoftware.com/blog/2024/05/37906-gotomeeting-loads-remcos
         - SectopRAT: https://www.gdatasoftware.com/blog/2019/11/35548-new-sectoprat-remote-access-malware-utilizes-second-desktop-to-control-browsers
         - Spora: https://www.gdatasoftware.com/blog/2017/01/29442-spora-worm-and-ransomware
         - SteamHide: https://www.gdatasoftware.com/blog/2021/06/36861-malware-hides-in-steam-profile-images
